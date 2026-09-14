@@ -1,0 +1,72 @@
+{
+  "manifest_version": 3,
+  "name": "RockwellTowards",
+  "short_name": "RockwellTowards",
+  "version": "0.4.3",
+  "description": "批量捕获并导出 AI 对话；修复 ChatGPT 档案图片/AI 生成图片解析与下载，刷新长对话档案并严格校验消息数，支持具体模型、最近记录和加速模式。",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "downloads",
+    "storage",
+    "unlimitedStorage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://chat.deepseek.com/*",
+    "https://deepseek.com/*",
+    "https://www.deepseek.com/*",
+    "https://chatglm.cn/*",
+    "https://www.chatglm.cn/*",
+    "https://*.oaiusercontent.com/*",
+    "https://*.openai.com/*",
+    "https://*.claudeusercontent.com/*",
+    "https://*.anthropic.com/*",
+    "https://*.googleusercontent.com/*",
+    "https://*.ggpht.com/*",
+    "https://*.chatglm.cn/*",
+    "https://*.bigmodel.cn/*"
+  ],
+  "action": {
+    "default_title": "RockwellTowards",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://chat.deepseek.com/*",
+        "https://deepseek.com/*",
+        "https://www.deepseek.com/*",
+        "https://chatglm.cn/*",
+        "https://www.chatglm.cn/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

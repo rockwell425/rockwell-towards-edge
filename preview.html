@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RockwellTowards 高级预览</title>
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span>R</span>
+      <div><strong>RockwellTowards</strong><small>高级预览与筛选 · v0.4.3</small></div>
+    </div>
+    <div class="top-actions">
+      <button id="copyMarkdownButton">复制 Markdown</button>
+      <button class="primary" id="docxButton">导出 DOCX</button>
+      <button class="primary" id="pdfButton">打印 / 保存 PDF</button>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <aside class="sidebar">
+      <section class="panel primary-settings">
+        <h2>文档设置</h2>
+        <label>文档标题<input id="titleInput" type="text" maxlength="160"></label>
+        <label>排版样式
+          <select id="templateSelect">
+            <option value="reading">阅读文档</option>
+            <option value="original">原始对话</option>
+            <option value="compact">紧凑存档</option>
+          </select>
+        </label>
+      </section>
+
+      <details class="panel more-settings">
+        <summary>更多排版设置</summary>
+        <div class="details-body">
+          <div class="two-col">
+            <label>纸张<select id="pageSizeSelect"><option value="A4">A4</option><option value="Letter">Letter</option></select></label>
+            <label>PDF 页边距<select id="marginSelect"><option value="10">窄</option><option value="15" selected>标准</option><option value="20">宽</option></select></label>
+          </div>
+          <label>DOCX 分卷
+            <select id="splitSelect">
+              <option value="0">单一文档</option>
+              <option value="100">每 100 条消息</option>
+              <option value="200">每 200 条消息</option>
+              <option value="500">每 500 条消息</option>
+              <option value="1000">每 1000 条消息</option>
+              <option value="2000">每 2000 条消息</option>
+            </select>
+          </label>
+          <label class="check"><input id="metadataCheck" type="checkbox" checked>显示信息页</label>
+          <label class="check"><input id="headerCheck" type="checkbox" checked>显示页眉</label>
+          <label class="check"><input id="numbersCheck" type="checkbox" checked>显示消息编号</label>
+        </div>
+      </details>
+
+      <section class="panel stats-panel">
+        <h2>当前导出范围</h2>
+        <dl>
+          <dt>已选择</dt><dd id="selectedCount">0</dd>
+          <dt>用户 / AI</dt><dd><span id="selectedUser">0</span> / <span id="selectedAssistant">0</span></dd>
+          <dt>字符</dt><dd id="selectedCharacters">0</dd>
+          <dt>预计页数</dt><dd id="estimatedPages">0</dd>
+          <dt>预计 DOCX</dt><dd id="estimatedSize">0 KB</dd>
+        </dl>
+        <p id="captureStatus"></p>
+      </section>
+
+      <section class="panel warning" id="partialWarning" hidden>
+        <strong>这是部分捕获结果</strong>
+        <p>任务被手动停止或触发安全保护，现有消息仍可正常导出。</p>
+      </section>
+    </aside>
+
+    <section class="content">
+      <div class="conversation-head">
+        <div>
+          <h1 id="conversationTitle">对话预览</h1>
+          <p id="conversationMeta"></p>
+        </div>
+        <div class="selection-actions">
+          <button id="selectAllButton">全选</button>
+          <button id="selectNoneButton">全不选</button>
+          <button id="selectUserButton">只选用户</button>
+          <button id="selectAssistantButton">只选 AI</button>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <input id="searchInput" type="search" placeholder="在消息中搜索…">
+        <span id="visibleCount">显示 0 条</span>
+      </div>
+      <div class="message-list" id="messageList"><p class="loading">正在读取捕获结果…</p></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="preview.js"></script>
+  <script src="preview-enhance.js"></script>
+</body>
+</html>

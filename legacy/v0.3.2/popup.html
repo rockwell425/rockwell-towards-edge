@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RockwellTowards</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="brand-row">
+      <div class="brand-mark" aria-hidden="true">R</div>
+      <div class="brand-copy">
+        <h1>RockwellTowards</h1>
+        <p>ChatGPT · Claude · Gemini · DeepSeek · 智谱清言</p>
+      </div>
+      <span class="version">v0.3.2</span>
+    </header>
+
+    <section class="status-card" aria-live="polite">
+      <div class="status-line">
+        <span class="status-dot" id="statusDot"></span>
+        <strong id="platformText">正在检测当前页面…</strong>
+      </div>
+      <p id="conversationText">请在受支持的 AI 对话页面使用。</p>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="progress-meta">
+          <span id="progressText">准备中</span>
+          <span id="elapsedText">00:00</span>
+        </div>
+        <div class="live-counts">
+          <span>已读取 <b id="liveTotal">0</b> 条</span>
+          <span>用户 <b id="liveUser">0</b></span>
+          <span>AI <b id="liveAssistant">0</b></span>
+        </div>
+      </div>
+    </section>
+
+    <label class="option-row">
+      <input type="checkbox" id="autoScroll" checked>
+      <span>
+        <strong>读取整段长对话</strong>
+        <small>自动滚动加载前文；关闭后只读取网页当前已加载的内容。</small>
+      </span>
+    </label>
+
+    <button class="primary-button" id="captureButton" type="button">捕捉当前对话</button>
+    <button class="stop-button" id="stopButton" type="button" hidden>立即停止</button>
+
+    <section class="result-card" id="resultCard" hidden>
+      <div class="metric"><strong id="messageCount">0</strong><span>条消息</span></div>
+      <div class="metric"><strong id="characterCount">0</strong><span>字符</span></div>
+      <div class="metric"><strong id="captureTime">—</strong><span>结果</span></div>
+    </section>
+
+    <section class="export-section" aria-label="导出选项">
+      <div class="button-grid">
+        <button class="secondary-button" id="docxButton" type="button" disabled>导出 DOCX</button>
+        <button class="secondary-button" id="pdfButton" type="button" disabled>打印 / 保存 PDF</button>
+      </div>
+      <div class="sub-actions">
+        <button class="text-button" id="copyButton" type="button" disabled>复制 Markdown</button>
+        <button class="text-button" id="previewButton" type="button" disabled>高级预览与筛选</button>
+      </div>
+    </section>
+
+    <details class="advanced-box">
+      <summary>高级工具</summary>
+      <div class="advanced-content">
+        <p>通常不需要使用。只有网页提取异常时再运行兼容性检查。</p>
+        <div class="utility-grid">
+          <button class="quiet-button" id="diagnoseButton" type="button">兼容性检查</button>
+          <button class="quiet-button" id="clearButton" type="button" disabled>清除本次结果</button>
+        </div>
+        <details class="diagnostic-box" id="diagnosticBox">
+          <summary>查看检查结果</summary>
+          <pre id="diagnosticText">尚未运行检查。</pre>
+          <div class="diagnostic-actions">
+            <button id="copyDiagnosticButton" type="button" disabled>复制报告</button>
+            <button id="downloadDiagnosticButton" type="button" disabled>导出 JSON</button>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="help-box">
+      <summary>使用说明与限制</summary>
+      <p>捕获完成后会停留在本页，可直接选择 DOCX 或 PDF，不会自动跳转。</p>
+      <p>图片会尽量嵌入 DOCX/PDF；附件会记录文件名、类型、大小和可用链接。隐藏的内部推理、未加载分支及服务器端数据无法读取。</p>
+    </details>
+
+    <p class="footer-note" id="footerNote">本地处理 · 不上传对话正文</p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

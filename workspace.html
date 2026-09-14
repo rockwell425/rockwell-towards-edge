@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN" data-rockwell-mode="workspace">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RockwellTowards 批量导出与最近记录</title>
+  <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+  <main class="workspace-shell">
+    <header class="hero">
+      <div class="brand-mark" aria-hidden="true">R</div>
+      <div>
+        <p class="eyebrow">RockwellTowards v0.4.3</p>
+        <h1>批量导出与最近记录</h1>
+        <p class="subtitle">从已经打开的 AI 对话标签页批量捕获；完整结果自动留存在本地最近记录中。</p>
+      </div>
+      <button id="refreshTabsButton" class="secondary" type="button">刷新标签页</button>
+    </header>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>批量任务</h2>
+          <p>最多同时捕获两条对话。DOCX 会依次生成，避免多份超长文档同时占用大量内存。</p>
+        </div>
+        <span id="tabSummary" class="pill">正在读取标签页…</span>
+      </div>
+
+      <div class="settings-grid">
+        <label><span>并行捕获</span><select id="concurrencySelect"><option value="1">1 条</option><option value="2" selected>2 条</option></select></label>
+        <label><span>读取速度</span><select id="speedMode"><option value="fast">快速</option><option value="balanced" selected>均衡</option><option value="complete">完整</option></select></label>
+        <label><span>图片处理</span><select id="mediaMode"><option value="link">仅链接</option><option value="standard" selected>标准图</option><option value="full">尽量高清</option><option value="none">不读取</option></select></label>
+        <label><span>长对话</span><select id="autoScroll"><option value="true" selected>读取整段</option><option value="false">只读已加载内容</option></select></label>
+        <label><span>DOCX 分卷</span><select id="splitMessages"><option value="0">单一文档</option><option value="500" selected>每 500 条</option><option value="1000">每 1000 条</option><option value="2000">每 2000 条</option></select></label>
+      </div>
+
+      <div class="checks-row">
+        <label><input id="includeUserImages" type="checkbox" checked> 用户发送图片</label>
+        <label><input id="includeAiImages" type="checkbox" checked> AI 生成/回复图片</label>
+        <label><input id="includeAttachments" type="checkbox" checked> 附件卡片</label>
+        <span class="divider"></span>
+        <label><input id="formatDocx" type="checkbox" checked> DOCX</label>
+        <label><input id="formatMarkdown" type="checkbox"> Markdown</label>
+        <label><input id="formatJson" type="checkbox"> JSON 档案</label>
+      </div>
+
+      <div class="toolbar">
+        <button id="selectAllTabsButton" class="secondary" type="button">全选</button>
+        <button id="selectNoTabsButton" class="secondary" type="button">全不选</button>
+        <button id="startBatchButton" class="primary" type="button">开始批量捕获并导出</button>
+        <button id="cancelBatchButton" class="danger" type="button" disabled>停止全部</button>
+      </div>
+
+      <div id="tabList" class="task-list"><p class="empty">正在查找已打开的对话标签页…</p></div>
+      <p id="batchNotice" class="notice" aria-live="polite">批量页面需保持打开；对话标签页也请不要关闭。</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>最近整理记录</h2>
+          <p>捕获完成或主动停止后自动存档。清除弹窗中的“当前结果”不会删除这里的记录。</p>
+        </div>
+        <label class="history-limit">保留 <select id="historyLimit"><option value="3">3 次</option><option value="6" selected>6 次</option><option value="10">10 次</option><option value="12">12 次</option></select></label>
+      </div>
+      <div class="toolbar compact">
+        <button id="refreshHistoryButton" class="secondary" type="button">刷新记录</button>
+        <button id="clearHistoryButton" class="danger ghost" type="button">清空全部记录</button>
+      </div>
+      <div id="historyList" class="history-list"><p class="empty">正在读取最近记录…</p></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="preview.js"></script>
+  <script src="workspace.js"></script>
+</body>
+</html>
