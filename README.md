@@ -71,3 +71,30 @@ GPT-5.6 Thinking / GPT-5.4 Thinking
 - 已删除、无权限或签名彻底失效的图片无法恢复。
 - 平台未把图片资源写入对话档案、页面也未加载时，扩展无法凭空取得实体。
 - 本版尚未在用户真实登录环境中完成大规模图片压力测试。
+
+## 下载
+
+两个包都在 [Releases](https://github.com/rockwell425/rockwell-towards-edge/releases) 页面下载：
+
+- **安装包** `RockwellTowards-Edge-v0.4.3.zip` —— 只含运行所需文件，解压后按上面的步骤加载即可。
+- **完整源码包** `RockwellTowards-Edge-v0.4.3-source.zip` —— 额外包含 `tests/` 自动化测试脚本和 `legacy/` 历史版本。
+
+## 开发与测试
+
+需要 Node.js。测试脚本使用合成数据，不会读取你的真实对话：
+
+```bash
+cd tests
+node test-chatgpt-archive.js
+node test-chatgpt-scale.js
+node test-chatgpt-media.js
+node test-chatgpt-media-resolver.js
+```
+
+## 隐私
+
+扩展完全在本地运行，不上传任何对话内容。捕获到的对话与图片只写入你本机下载的文件。申请的各站点权限仅用于在对应 AI 对话页面读取内容。
+
+## 许可证
+
+[MIT](LICENSE) © 2026 rockwell425
